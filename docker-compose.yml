@@ -1,0 +1,56 @@
+services:
+  be:
+    container_name: ${PROJECT_NAME}-be
+    build:
+      context: ./
+      dockerfile: docker/be/Dockerfile
+    restart: unless-stopped
+    command: bash -c "npm start"
+    volumes:
+      - ./be:${BE_DIRECTORY}
+    environment:
+      NODE_ENV: dev
+    networks:
+      notifier:
+        ipv4_address: ${BE_IPV4}
+  fe:
+    container_name: ${PROJECT_NAME}-fe
+    build:
+      context: ./
+      dockerfile: docker/fe/Dockerfile
+    restart: unless-stopped
+    command: bash -c "npm start"
+    volumes:
+      - ./fe:${FE_DIRECTORY}
+    environment:
+      NODE_ENV: dev
+    networks:
+      notifier:
+        ipv4_address: ${FE_IPV4}
+
+  nginx:
+    container_name: ${PROJECT_NAME}-nginx
+    build:
+      context: ./docker/nginx
+    restart: unless-stopped
+    volumes:
+      - ./docker/certs/local:/etc/nginx/certs
+    environment:
+      NGINX_HOST: ${NGINX_HOST}
+      NGINX_PORT: ${NGINX_PORT}
+      NGINX_CERT_CRT: ${NGINX_CERT_CRT}
+      NGINX_CERT_KEY: ${NGINX_CERT_KEY}
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      notifier:
+        ipv4_address: ${NGINX_IPV4}
+
+networks:
+  notifier:
+    driver: "bridge"
+    ipam:
+      driver: default
+      config:
+        - subnet: ${SUBNET_IPV4}

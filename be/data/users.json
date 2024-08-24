@@ -1,0 +1,17 @@
+{
+  "eb94f37e-0b66-4bc4-a6f7-25ad4576fee9": {
+    "username": "tim",
+    "tokens": [
+      "1234"
+    ],
+    "id": "eb94f37e-0b66-4bc4-a6f7-25ad4576fee9"
+  },
+  "90fc8de5-5957-48ca-8dfe-a720bc1abeb5": {
+    "username": "renat",
+    "tokens": [
+      "1234",
+      "12345"
+    ],
+    "id": "90fc8de5-5957-48ca-8dfe-a720bc1abeb5"
+  }
+}

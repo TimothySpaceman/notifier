@@ -1,0 +1,12 @@
+.prettyInput{
+    width: 100%;
+    border: 2px solid cadetblue;
+    padding: 5px;
+    margin: 5px;
+    font-size: 20px ;
+    color: #6b1616;
+}
+.prettyInput:focus{
+    outline: 3px solid #6b1616;
+    border: none;
+}
