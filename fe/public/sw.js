@@ -20,7 +20,6 @@ self.addEventListener('activate',  async (event) => {
             .filter((name) => name !== STATIC_CACHE_NAME)
             .map(name => caches.delete(name))
     );
-
 });
 
 self.addEventListener('fetch', (event) => {

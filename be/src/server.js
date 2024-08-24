@@ -2,17 +2,31 @@ import express, {json} from "express";
 import {createDB} from "./jsondb.js";
 import path from 'path';
 import {fileURLToPath} from 'url';
-import {initializeApp} from "firebase-admin/app";
 import {getMessaging} from "firebase-admin/messaging";
-import {firebaseConfig} from "../firebaseConfig.js";
+import cors from "cors";
+import { createRequire } from "module";
+import {initializeApp} from "firebase-admin/app";
+const require = createRequire(import.meta.url);
+const serviceAccount = require("../notifierps-1380a-firebase-adminsdk-2avs3-b374c56ed8.json");
+const admin = require("firebase-admin");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(cors());
 app.use(json());
 
-const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    apiKey: "AIzaSyBg8cUs7HlCdPjys9mA1NMD-n446IzF_IQ",
+    authDomain: "notifierps-1380a.firebaseapp.com",
+    projectId: "notifierps-1380a",
+    storageBucket: "notifierps-1380a.appspot.com",
+    messagingSenderId: "320524792223",
+    appId: "1:320524792223:web:e63aa897adb325cc574daa",
+    measurementId: "G-J0N9EQF32S"
+});
 const messaging = getMessaging(firebaseApp);
 
 

@@ -19,7 +19,7 @@ services:
       context: ./
       dockerfile: docker/fe/Dockerfile
     restart: unless-stopped
-    command: bash -c "npm start"
+    command: bash -c "npm run build && npm start"
     volumes:
       - ./fe:${FE_DIRECTORY}
     environment:
@@ -35,11 +35,13 @@ services:
     restart: unless-stopped
     volumes:
       - ./docker/certs/local:/etc/nginx/certs
+      - ./fe:${FE_DIRECTORY}
     environment:
       NGINX_HOST: ${NGINX_HOST}
       NGINX_PORT: ${NGINX_PORT}
       NGINX_CERT_CRT: ${NGINX_CERT_CRT}
       NGINX_CERT_KEY: ${NGINX_CERT_KEY}
+      FE_DIRECTORY: ${FE_DIRECTORY}
     ports:
       - "80:80"
       - "443:443"
